@@ -22,5 +22,5 @@ var app = app || {};
         app.makeRequest("DELETE", this.url + 'Comment/' + id, success, error);
     };
 
-    app.module.comment = Comment;
+    app.module.Comment = Comment;
 }());

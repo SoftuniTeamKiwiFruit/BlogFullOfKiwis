@@ -22,5 +22,5 @@ var app = app || {};
         app.makeRequest("DELETE", this.url + 'Post/' + id, success, error);
     };
 
-    app.module.post = Post;
+    app.module.Post = Post;
 }());
