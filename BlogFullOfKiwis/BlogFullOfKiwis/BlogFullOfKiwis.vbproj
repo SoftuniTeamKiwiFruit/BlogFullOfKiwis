@@ -87,6 +87,7 @@
     <Content Include="scripts\Comment-Model.js" />
     <Content Include="scripts\MakeRequest.js" />
     <Content Include="scripts\Post-Model.js" />
+    <Content Include="styles\styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
