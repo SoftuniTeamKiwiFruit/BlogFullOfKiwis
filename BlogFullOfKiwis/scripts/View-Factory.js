@@ -11,7 +11,7 @@ var app = app || {};
             for(var i = 0; i < data.results.length; i++){
                 var post = $("<article/>").attr('id', data.results[i].objectId);
                 post.append("<h3>" + data.results[i].title +"</h3>")
-                    .append("<p>Content: " + data.results[i].content +"</p>");
+                    .append("<p>" + data.results[i].content +"</p>");
                 $('#sideBar').append(post);
             }
         },
