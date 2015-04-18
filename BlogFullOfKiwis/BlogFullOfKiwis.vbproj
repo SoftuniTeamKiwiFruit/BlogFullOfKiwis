@@ -88,7 +88,6 @@
     <Content Include="scripts\Comment-Model.js" />
     <Content Include="scripts\MakeRequest.js" />
     <Content Include="scripts\Post-Model.js" />
-    <Content Include="scripts\View-Factory.js" />
     <Content Include="styles\styles.css" />
   </ItemGroup>
   <ItemGroup>

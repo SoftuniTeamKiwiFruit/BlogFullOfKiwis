@@ -1,24 +1,5 @@
 ﻿body {
     background-color: #adff2f;
-    font-family: Calibri, sans-serif;
-}
-
-article {
-    border-radius: 5px;
-    border: 1px solid #e8a06b;
-    margin: 7px;
-}
-
-form, form div {
-    margin: 5px;
-}
-
-h3 {
-    color: #df6104;
-}
-
-h3, article, p {
-    margin: 7px;
 }
 
 body, header {
@@ -27,28 +8,10 @@ body, header {
 }
 
 #sideBar {
-    width: 65%;
-}
-
-#loginForm {
-    //width: 25%;
-}
-
-#sideBar, #loginForm, #createPostForm {
-    border-radius: 5px;
-    border: 2px solid #006400;
-    background: #ffffff;
-    margin: 5px;
+    border: 1px solid black;
+    width: 25%;
 }
 
 #headerPic {
     width: 100%;
-}
-
-#sideBar, #sideForms {
-    display: inline-block;
-}
-
-#postContent {
-    height: 120px;
 }
