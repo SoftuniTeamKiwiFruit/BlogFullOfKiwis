@@ -2,7 +2,16 @@
     background-color: #adff2f;
 }
 
+body, header {
+    margin: 0;
+    padding: 0;
+}
+
 #sideBar {
     border: 1px solid black;
     width: 25%;
+}
+
+#headerPic {
+    width: 100%;
 }

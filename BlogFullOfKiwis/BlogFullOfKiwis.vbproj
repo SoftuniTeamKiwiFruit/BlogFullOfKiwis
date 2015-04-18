@@ -81,6 +81,7 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\header-pic.jpg" />
     <Content Include="index.html" />
     <Content Include="libs\jquery-2.1.3.min.js" />
     <Content Include="scripts\App-Main.js" />
