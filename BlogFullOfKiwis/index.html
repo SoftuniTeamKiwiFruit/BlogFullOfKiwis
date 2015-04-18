@@ -10,8 +10,39 @@
     <header>
         <img src="images/header-pic.jpg" alt="team kiwi fruit site logo" id="headerPic" />
     </header>
-    <div id="sideBar">
-    </div>
+    <main>
+        <div id="sideBar"></div>
+        <div id="sideForms">
+            <div id="loginForm">
+                <form>
+                    <div>
+                        <label for="username">Username: </label>
+                        <input type="text" name="username" />
+                    </div>
+                    <div>
+                        <label for="username">Password: </label>
+                        <input type="password" name="passord" />
+                    </div>
+                    <input type="submit" value="Login" />
+                </form>
+            </div>
+            <div id="createPostForm">
+                <form>
+                    <div>
+                        <label for="postTitle">Title: </label>
+                        <input type="text" name="postTitle" />
+                    </div>
+                    <div>
+                        <label for="postContent">Post: </label>
+                        <input type="text" name="postContent" id="postContent" />
+                    </div>
+                    <input type="submit" value="Create post" />
+                </form>
+            </div>
+        </div>
+
+    </main>
+
 
     <script src="scripts/MakeRequest.js"></script>
     <script src="scripts/Post-Model.js"></script>
