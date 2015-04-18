@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>
     </SchemaVersion>
-    <ProjectGuid>{920B304F-FF36-4AC3-9E75-6101A6D3F86C}</ProjectGuid>
+    <ProjectGuid>{3A1A5835-263D-46BA-A162-F50C408E204E}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <RootNamespace>BlogFullOfKiwis</RootNamespace>
@@ -81,14 +81,17 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="images\header-pic.jpg" />
     <Content Include="index.html" />
     <Content Include="libs\jquery-2.1.3.min.js" />
+    <Content Include="scripts\Add-Event-Listeners.js" />
     <Content Include="scripts\App-Main.js" />
     <Content Include="scripts\Comment-Model.js" />
+    <Content Include="scripts\Login.js" />
     <Content Include="scripts\MakeRequest.js" />
     <Content Include="scripts\Post-Model.js" />
+    <Content Include="scripts\View-Factory.js" />
     <Content Include="styles\styles.css" />
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -129,6 +132,12 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -155,9 +164,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>17905</DevelopmentServerPort>
+          <DevelopmentServerPort>37016</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:17905/</IISUrl>
+          <IISUrl>http://localhost:37016/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
