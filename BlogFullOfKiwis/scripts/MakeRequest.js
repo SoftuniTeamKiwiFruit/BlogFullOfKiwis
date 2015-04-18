@@ -6,7 +6,8 @@ var app = app || {};
             method: method,
             headers:{
                 'X-Parse-Application-Id' : 'mnDVAKQjjyFUimhjtoIiJe9b64eoglNuBXPUlGHq',
-                'X-Parse-REST-API-Key' : 'AxRofCko80JSRyaZRoip8SU1B40UmbYTEKGwhSCc'
+                'X-Parse-REST-API-Key' : 'AxRofCko80JSRyaZRoip8SU1B40UmbYTEKGwhSCc',
+                'X-Parse-Session-Token' : sessionStorage.sessionToken
             },
             url: baseUrl,
             data: data
