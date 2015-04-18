@@ -20,5 +20,9 @@ var app = app || {};
 
 
 
+    if(sessionStorage.sessionToken){
+        $('#loginForm').remove();
+    }
+
     app.module.ViewFactory = ViewFactory;
 }());

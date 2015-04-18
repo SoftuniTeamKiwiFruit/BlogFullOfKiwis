@@ -1,6 +1,7 @@
 var app = app || {};
 
 (function(){
+
     var MakeRequest = function(method, baseUrl, data, success, error){
         $.ajax({
             method: method,
