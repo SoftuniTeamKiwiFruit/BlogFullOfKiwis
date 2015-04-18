@@ -6,7 +6,7 @@ var app = app || {};
         this.model = model;
     }
 
-    
+
 
     app.module.ViewFactory = ViewFactory;
 }());
