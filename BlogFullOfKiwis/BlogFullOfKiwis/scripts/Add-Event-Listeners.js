@@ -15,7 +15,7 @@ var app = app || {};
                     "*": {"read": true, "write": true}
                 }
             });
-            module.postPost(data,function(){
+            module.Post.postPost(data,function(){
                     location.reload();
                 },
                 function(err){console.log(err.responseText)});

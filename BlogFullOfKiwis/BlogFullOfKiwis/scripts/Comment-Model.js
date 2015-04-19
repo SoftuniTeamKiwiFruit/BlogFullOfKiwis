@@ -22,5 +22,5 @@ var app = app || {};
         app.makeRequest("DELETE", this.url + 'Comment/' + id, success, error);
     };
 
-    app.module.Comment = Comment;
+    app.module.Comment = new Comment('https://api.parse.com/1/classes/');
 }());

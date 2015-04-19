@@ -22,5 +22,5 @@ var app = app || {};
         app.makeRequest("DELETE", this.url + 'Post/' + id, success, error);
     };
 
-    app.module.Post = Post;
+    app.module.Post = new Post('https://api.parse.com/1/classes/');
 }());
