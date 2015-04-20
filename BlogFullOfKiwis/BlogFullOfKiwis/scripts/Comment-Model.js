@@ -6,21 +6,21 @@ var app = app || {};
         this.url = url;
     };
 
-    Comment.prototype.getAllComment = function(success, error){
-        app.makeRequest("GET", this.url + 'Comment/', null, success, error);
+    Comment.prototype.getSpecifyComment = function(querryUrl, success, error){
+        app.makeRequest("GET", this.url + querryUrl, null, success, error);
     };
 
-    Comment.prototype.postPost = function(data, success, error){
-        app.makeRequest("POST", this.url + 'Comment/', data, success, error);
+    Comment.prototype.postComment = function(data, success, error){
+        app.makeRequest("POST", this.url, data, success, error);
     };
 
-    Comment.prototype.editPost = function(id, data, success, error){
-        app.makeRequest("PUT", this.url + 'Comment/' + id, data, success, error);
+    Comment.prototype.editComment = function(id, data, success, error){
+        app.makeRequest("PUT", this.url + id, data, success, error);
     };
 
-    Comment.prototype.deletePost = function(id, success, error){
-        app.makeRequest("DELETE", this.url + 'Comment/' + id, success, error);
+    Comment.prototype.deleteComment = function(id, success, error){
+        app.makeRequest("DELETE", this.url + id, success, error);
     };
 
-    app.module.Comment = new Comment('https://api.parse.com/1/classes/');
+    app.module.Comment = new Comment('https://api.parse.com/1/classes/Comment/');
 }());
