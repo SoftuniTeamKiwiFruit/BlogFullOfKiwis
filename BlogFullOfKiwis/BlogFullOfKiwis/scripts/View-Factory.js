@@ -13,7 +13,8 @@ var app = app || {};
                 var showCommentButton = $('<button>Show comments</button>').attr('id', 'show-comments' + i);
                 post.append("<h3>" + data.results[i].title +"</h3>")
                     .append("<p>" + data.results[i].content +"</p>")
-                    .append(showCommentButton);
+                    .append(showCommentButton)
+                    .append(visits);
                 $('#sideBar').append(post);
             }
         },
