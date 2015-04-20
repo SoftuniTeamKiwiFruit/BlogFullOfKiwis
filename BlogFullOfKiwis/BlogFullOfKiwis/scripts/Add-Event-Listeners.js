@@ -4,10 +4,7 @@ var app = app || {};
     function addEventListeners(module){
         $('#loginButton').on('click',app.login);
         $('#addPost').on('click', post);
-            $(document).on('click', $('button'), showComments);
-
-
-
+        $(document).on('click', $('button'), showComments);
 
         function post(){
             var title = $('#postTitle').val();
@@ -41,6 +38,7 @@ var app = app || {};
                     content = data.results[i].content;
                     visitorName = 'from ' + data.results[i].visitorName + ': ';
                     contentHolder = $('<section>').attr('id', 'comments-' + idIndex).html(visitorName + content);
+                    contentHolder.attr('class', 'comment-holder');
                     $('#' + articleId).append(contentHolder);
                 }
             };
