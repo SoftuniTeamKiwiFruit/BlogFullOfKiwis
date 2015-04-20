@@ -43,6 +43,19 @@ var app = app || {};
                     contentHolder.attr('class', 'comment-holder');
                     $('#' + articleId).append(contentHolder);
                 }
+                module.Post.getPostById(articleId,
+                    function(data){
+                        var newVisitCount = parseInt(data.visits);
+                        newVisitCount++;
+                        var editData = JSON.stringify({
+                            visits: newVisitCount
+                        });
+                        console.log(articleId);
+                        module.Post.editPost(articleId, editData, function(data){console.log(data)}, function(err){console.log(err.responseText)})
+                    },
+                    function(err){
+                        console.log(err.responseText)
+                    });
             }
 
             function error(err) {

@@ -10,12 +10,16 @@ var app = app || {};
         app.makeRequest("GET", this.url, null, success, error);
     };
 
+    Post.prototype.getPostById = function(id, success, error){
+        app.makeRequest("GET", this.url + '/' + id, null, success, error);
+    };
+
     Post.prototype.postPost = function(data, success, error){
         app.makeRequest("POST", this.url, data, success, error);
     };
 
     Post.prototype.editPost = function(id, data, success, error){
-        app.makeRequest("PUT", this.url + id, data, success, error);
+        app.makeRequest("PUT", this.url + '/' + id, data, success, error);
     };
 
     Post.prototype.deletePost = function(id, success, error){
