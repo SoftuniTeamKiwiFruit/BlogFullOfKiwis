@@ -13,6 +13,7 @@ var app = app || {};
             var data = JSON.stringify({
                 'title': title,
                 'content': content,
+                'visits' : 0,
                 ACL: {
                     "*": {"read": true, "write": true}
                 }
