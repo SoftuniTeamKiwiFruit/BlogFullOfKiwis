@@ -11,6 +11,7 @@ var app = app || {};
             for(var i = 0; i < data.results.length; i++){
                 var post = $("<article/>").attr('id', data.results[i].objectId);
                 var showCommentButton = $('<button>Show comments</button>').attr('id', 'show-comments' + i);
+                var visits = $('<p/>').attr('id', 'visits').text('Visits: ' + data.results[i].visits);
                 post.append("<h3>" + data.results[i].title +"</h3>")
                     .append("<p>" + data.results[i].content +"</p>")
                     .append(showCommentButton)
