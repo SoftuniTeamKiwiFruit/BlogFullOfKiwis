@@ -21,7 +21,10 @@ var app = app || {};
     };
 
     if(sessionStorage.sessionToken){
-        $('#loginForm').remove();
+        $('#login').remove();
+    }
+    else{
+        $('#adminForm').remove();
     }
 
     app.module.ViewFactory =  ViewFactory;

@@ -5,6 +5,7 @@ var app = app || {};
         $('#loginButton').on('click',app.login);
         $('#addPost').on('click', post);
         $(document).on('click', $('button'), showComments);
+        $('#logoutButton').on('click', logout);
 
         function post(){
             var title = $('#postTitle').val();
@@ -41,11 +42,16 @@ var app = app || {};
                     contentHolder.attr('class', 'comment-holder');
                     $('#' + articleId).append(contentHolder);
                 }
-            };
+            }
 
             function error(err) {
                 console.log(err.responseText);
             }
+        }
+
+        function logout(){
+            sessionStorage.clear();
+            location.reload();
         }
     }
 
