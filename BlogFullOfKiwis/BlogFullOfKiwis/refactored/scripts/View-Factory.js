@@ -93,7 +93,7 @@ app.viewFactory = (function(){
             console.log(err);
         })
 
-    }
+    };
 
     ViewFactory.prototype.attachEventListeners = function (viewFactory) {
         $('#addPost').on('click', function(){
@@ -104,6 +104,22 @@ app.viewFactory = (function(){
             viewFactory.loginView()
         });
 
+    };
+
+    ViewFactory.prototype.showSinglePost = function (objectId) {
+        var _this = this;
+        this.model.posts.getPostById(objectId, function(data){
+            var visitsPlusPlus = data.visits+1;
+            var newData = JSON.stringify({'visits': visitsPlusPlus});
+
+            _this.model.posts.editPost(objectId,
+                newData,
+                function(){console.log('success')},
+                function(err){console.log(err.responseText)});
+
+        }, function(err) {
+            console.log(err.responseText)
+        })
     };
 
     if(sessionStorage.sessionToken){

@@ -17,6 +17,10 @@ app.models = (function() {
             app.makeRequest("GET", this.serviceUrl, null, success, error)
         };
 
+        Posts.prototype.getPostById = function(id, success, error){
+            app.makeRequest("GET", this.serviceUrl + '/' + id, null, success, error);
+        };
+
         Posts.prototype.addPost = function(data, success, error){
             app.makeRequest("POST", this.serviceUrl, data, success, error);
         };

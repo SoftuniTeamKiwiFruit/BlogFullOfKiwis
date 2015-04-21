@@ -5,5 +5,6 @@ var app = app || {};
     var viewModel = new app.viewFactory.loadViewFactory(model);
     viewModel.loadPosts();
 
+    viewModel.showSinglePost('bjFWrj8ZIK');
 
 }());
