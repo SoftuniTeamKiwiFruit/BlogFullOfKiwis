@@ -83,17 +83,26 @@ app.viewFactory = (function(){
         clickedElement.text('Show comments');
     }
 
+    ViewFactory.prototype.loginView = function() {
+        var username = $('#username').val();
+        var password = $('#password').val();
+
+        this.model.users.login(username, password, function(data){
+            console.log(data);
+        }, function(err){
+            console.log(err);
+        })
+
+    }
+
     ViewFactory.prototype.attachEventListeners = function (viewFactory) {
         $('#addPost').on('click', function(){
             viewFactory.addPost();
         });
 
-        $('#loginButton').on('click',app.login);
-
-        $('article').on('click', function(){
-            console.log('aare we');
-        })
-
+        $('#loginButton').on('click',function(){
+            viewFactory.loginView()
+        });
 
     };
 
