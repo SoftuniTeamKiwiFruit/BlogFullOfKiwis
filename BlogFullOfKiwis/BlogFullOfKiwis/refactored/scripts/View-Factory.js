@@ -150,6 +150,17 @@ app.viewFactory = (function(){
         console.log('visits returned ' + visits)
     }
 
+    ViewFactory.prototype.loadTags = function(){
+        this.model.tags.getTags(function(data){
+                data.results.forEach(function(tag){
+                    $('#tags').append(" #" + tag.name );
+                })
+            },
+            function(err){
+                console.log(err.responseText);
+            });
+    };
+
     if(sessionStorage.sessionToken){
         $('#loginForm').remove();
     }

@@ -7,6 +7,7 @@ app.models = (function() {
         this.comments = new Comments(this.baseUrl);
         this.users = new Users(this.baseUrl);
         this.visits = new Visits(this.baseUrl);
+        this.tags = new Tags(this.baseUrl);
     }
 
     var Posts = (function(){
@@ -88,9 +89,13 @@ app.models = (function() {
 
     //To-Do Tags model
     var Tags = (function(){
-        function Tags(){
-
+        function Tags(baseUrl){
+            this.serviceUrl = baseUrl + "Tag";
         }
+
+        Tags.prototype.getTags = function(success, error){
+            app.makeRequest('GET', this.serviceUrl, null, success, error);
+        };
 
         return Tags;
     }());
@@ -103,7 +108,7 @@ app.models = (function() {
         Visits.prototype.getPostVisits = function(postId, success, error) {
             var querryUrl = '/?where={ "postPointer":{"__type": "Pointer","className": "Post","objectId": "' + postId + '"}}';
             app.makeRequest('GET', this.serviceUrl + querryUrl, null, success, error);
-        }
+        };
 
         return Visits;
     }());
