@@ -35,6 +35,24 @@ app.models = (function() {
             app.makeRequest("DELETE", this.serviceUrl + '/' +  id, success, error);
         };
 
+        Posts.prototype.addTags = function(id, tags, sucess, error){
+
+            for(var i = 0; i <= tags.length; i++){
+                var data = JSON.stringify({
+                    tags: {
+                        __op: "AddRelation",
+                        objects: [{
+                            __type: 'Pointer',
+                            className : 'Tag',
+                            objectId: tags[i]
+                        }]
+                    }
+                });
+                app.makeRequest("PUT", "https://api.parse.com/1/classes/Post/" + id, data, function(data){console.log(data)},
+                function(err){console.log(err.responseText)})
+            }
+        };
+
         return Posts;
     }());
 
@@ -80,10 +98,10 @@ app.models = (function() {
         };
         Users.prototype.logout = function(userId, success, error) {
             app.makeRequest('POST', this.serviceUrl + 'logout', data, success, error);
-        }
+        };
         Users.prototype.deteleUser = function(userId, success, error) {
             app.makeRequest('DELETE', this.serviceUrl + 'users/' + userId, success, error);
-        }
+        };
         return Users;
     }());
 
@@ -95,6 +113,28 @@ app.models = (function() {
 
         Tags.prototype.getTags = function(success, error){
             app.makeRequest('GET', this.serviceUrl, null, success, error);
+        };
+
+        Tags.prototype.getIds = function(tagNames){
+            var Ids = [];
+            $.ajax({
+                method: "GET",
+                async: false,
+                headers:{
+                    'X-Parse-Application-Id' : 'mnDVAKQjjyFUimhjtoIiJe9b64eoglNuBXPUlGHq',
+                    'X-Parse-REST-API-Key' : 'AxRofCko80JSRyaZRoip8SU1B40UmbYTEKGwhSCc'
+                },
+                url: 'https://api.parse.com/1/classes/Tag'
+            }).success(function(data){
+                tagNames.forEach(function(tagName){
+                    data.results.forEach(function(tag){
+                        if(tagName == tag.name){
+                            Ids.push(tag.objectId);
+                        }
+                    })
+                });
+            }).error(function(err){console.log(err.responseText)})
+            return Ids;
         };
 
         return Tags;

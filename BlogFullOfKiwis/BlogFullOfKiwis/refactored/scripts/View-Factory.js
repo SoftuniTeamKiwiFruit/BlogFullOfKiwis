@@ -35,6 +35,8 @@ app.viewFactory = (function(){
     ViewFactory.prototype.addPost = function(){
         var title = $('#postTitle').val();
         var content = $('#postContent').val();
+        var tags = $('#addTags').val().split(' ');
+        var ids = this.model.tags.getIds(tags);
         var data = JSON.stringify({
             'title': title,
             'content': content,
@@ -42,12 +44,13 @@ app.viewFactory = (function(){
                 "*": {"read": true, "write": true}
             }
         });
-        this.model.posts.addPost(data,function(){
-                //tova ne trqbva da e s reload, a po skoro prosto da ima funciq addToDom i da se izpylni.
-                location.reload();
+        var _this = this;
+        this.model.posts.addPost(data,function(data){
+                var id = data.objectId;
+                _this.model.posts.addTags(id, ids, function(data){console.log(data)},function(err){console.log(err.responseText)})
             },
             function(err){console.log(err.responseText)});
-    }
+    };
 
     ViewFactory.prototype.showComments = function(ev) {
         var clickedElement = ev.target;
@@ -72,18 +75,18 @@ app.viewFactory = (function(){
                 contentHolder = $('<section>').attr('class', 'comments-' + idIndex).text(visitorName + content);
                 commentHolder.append(contentHolder);
             }
-        };
+        }
 
         function error(err) {
             console.log(err.responseText);
         }
-    }
+    };
 
     ViewFactory.prototype.hideComments = function(ev) {
         var clickedElement = $(ev.target);
         clickedElement.parent().find('.comments-holder').remove();
         clickedElement.text('Show comments');
-    }
+    };
 
     ViewFactory.prototype.loginView = function() {
         var username = $('#username').val();
