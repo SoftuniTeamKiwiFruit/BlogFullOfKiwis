@@ -115,6 +115,12 @@ app.models = (function() {
             app.makeRequest('GET', this.serviceUrl, null, success, error);
         };
 
+        Tags.prototype.getAddedTags = function(id, success, error){
+            app.makeRequest('GET',
+this.serviceUrl + '?where={"$relatedTo":{"object":{"__type":"Pointer","className":"Post","objectId":"' + id + '"},"key":"tags"}}',
+            null, success, error);
+        };
+
         Tags.prototype.getIds = function(tagNames){
             var Ids = [];
             $.ajax({

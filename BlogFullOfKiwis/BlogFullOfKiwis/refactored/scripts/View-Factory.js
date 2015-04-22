@@ -10,8 +10,11 @@ app.viewFactory = (function(){
     ViewFactory.prototype.loadPosts = function(){
         var _this = this;
         this.model.posts.getAllPosts(function(data){
+            var postData = data;
             for(var i = 0; i < data.results.length; i++){
-                var post = $("<article/>").attr('data-id', data.results[i].objectId);
+                var index = 0;
+                var postId = data.results[i].objectId;
+                var post = $("<article/>").attr('data-id', postId);
                 var showCommentButton = $('<button>Show comments</button>').attr('class', 'show-comments')
                     .on('click', function(ev){
                         if(ev.target.innerText == 'Show comments') {
@@ -24,9 +27,18 @@ app.viewFactory = (function(){
                 post.append("<h3>" + data.results[i].title +"</h3>")
                     .append("<p>" + data.results[i].content +"</p>")
                     .append($('<span class="visits">'))
+                    .append($('<p id = ' + postId + '></p>'))
                     .append(showCommentButton);
                 $('#sideBar').append(post);
-                _this.showPostVisits(data.results[i].objectId);
+                _this.showPostVisits(postId);
+                _this.model.tags.getAddedTags(postId,
+                    function(data){
+                        for(var i = 0; i < data.results.length; i++){
+                            $('#'+postData.results[index].objectId).append(' #' + data.results[i].name);
+                        }
+                        index++;
+                    },
+                    function(err){console.log(err.responseText)})
             }
         },
         function(err){console.log(err.responseText)});
@@ -35,7 +47,9 @@ app.viewFactory = (function(){
     ViewFactory.prototype.addPost = function(){
         var title = $('#postTitle').val();
         var content = $('#postContent').val();
-        var tags = $('#addTags').val().split(' ');
+        var tags = $('#addTags').val().split(/[ #,]+/);
+        tags = tags.filter(function(n){ return n != '' });
+        console.log(tags);
         var ids = this.model.tags.getIds(tags);
         var data = JSON.stringify({
             'title': title,
@@ -47,7 +61,8 @@ app.viewFactory = (function(){
         var _this = this;
         this.model.posts.addPost(data,function(data){
                 var id = data.objectId;
-                _this.model.posts.addTags(id, ids, function(data){console.log(data)},function(err){console.log(err.responseText)})
+                _this.model.posts.addTags(id, ids, function(data){console.log(data)},function(err){console.log(err.responseText)});
+
             },
             function(err){console.log(err.responseText)});
     };
@@ -150,7 +165,6 @@ app.viewFactory = (function(){
             visits = 0;
         }
         visitsContainer.text(visits);
-        console.log('visits returned ' + visits)
     }
 
     ViewFactory.prototype.loadTags = function(){
