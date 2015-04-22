@@ -74,7 +74,7 @@ app.models = (function() {
         };
 
         Users.prototype.login = function(username, password, success, error) {
-            app.makeRequest('GET', this.serviceUrl + 'login' + '?username=' + username + '&password=' + password, success, error);
+            app.makeRequest('GET', this.serviceUrl + 'login' + '?username=' + username + '&password=' + password, {}, success, error);
         };
         Users.prototype.logout = function(userId, success, error) {
             app.makeRequest('POST', this.serviceUrl + 'logout', data, success, error);

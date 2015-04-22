@@ -88,9 +88,10 @@ app.viewFactory = (function(){
         var password = $('#password').val();
 
         this.model.users.login(username, password, function(data){
-            console.log(data);
+            sessionStorage.sessionToken = data.sessionToken;
+            location.reload();
         }, function(err){
-            console.log(err);
+            console.log(err.responseText);
         })
 
     };
