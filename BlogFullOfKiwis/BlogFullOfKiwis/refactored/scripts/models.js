@@ -6,6 +6,7 @@ app.models = (function() {
         this.posts = new Posts(this.baseUrl);
         this.comments = new Comments(this.baseUrl);
         this.users = new Users(this.baseUrl);
+        this.visits = new Visits(this.baseUrl);
     }
 
     var Posts = (function(){
@@ -80,9 +81,31 @@ app.models = (function() {
             app.makeRequest('POST', this.serviceUrl + 'logout', data, success, error);
         }
         Users.prototype.deteleUser = function(userId, success, error) {
-            app.makeRequest('DELETE', this.serviceUrl + 'users/' + userId);
+            app.makeRequest('DELETE', this.serviceUrl + 'users/' + userId, success, error);
         }
         return Users;
+    }());
+
+    //To-Do Tags model
+    var Tags = (function(){
+        function Tags(){
+
+        }
+
+        return Tags;
+    }());
+
+    var Visits = (function(){
+        function Visits(baseUrl) {
+            this.serviceUrl = baseUrl + 'Visit';
+        }
+
+        Visits.prototype.getPostVisits = function(postId, success, error) {
+            var querryUrl = '/?where={ "postPointer":{"__type": "Pointer","className": "Post","objectId": "' + postId + '"}}';
+            app.makeRequest('GET', this.serviceUrl + querryUrl, null, success, error);
+        }
+
+        return Visits;
     }());
 
     return {

@@ -5,6 +5,8 @@ var app = app || {};
     var viewModel = new app.viewFactory.loadViewFactory(model);
     viewModel.loadPosts();
 
+    //viewModel.showPostVisits('bjFWrj8ZIK');
+
     var data = JSON.stringify({
        tags: {
            __op: "AddRelation",
@@ -25,10 +27,10 @@ var app = app || {};
             }]
         }
     });
-    app.makeRequest("PUT", "https://api.parse.com/1/classes/Post/CavvKmnrki", data, function(data){console.log(data)},
-    function(err){console.log(err.responseText)})
+    //app.makeRequest("PUT", "https://api.parse.com/1/classes/Post/CavvKmnrki", data, function(data){console.log(data)},
+    //function(err){console.log(err.responseText)})
 
-    app.makeRequest("PUT", "https://api.parse.com/1/classes/Tag/J7B83whnWp", data2, function(data){console.log(data)},
-        function(err){console.log(err.responseText)})
+    //app.makeRequest("PUT", "https://api.parse.com/1/classes/Tag/J7B83whnWp", data2, function(data){console.log(data)},
+        //function(err){console.log(err.responseText)})
 
 }());

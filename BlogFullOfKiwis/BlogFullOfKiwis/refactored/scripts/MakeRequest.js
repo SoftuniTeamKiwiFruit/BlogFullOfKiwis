@@ -16,5 +16,4 @@ var app = app || {};
     };
 
     app.makeRequest = MakeRequest;
-    app.module = {};
 }());

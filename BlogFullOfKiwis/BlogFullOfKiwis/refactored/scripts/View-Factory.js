@@ -23,8 +23,10 @@ app.viewFactory = (function(){
                     });
                 post.append("<h3>" + data.results[i].title +"</h3>")
                     .append("<p>" + data.results[i].content +"</p>")
+                    .append($('<span class="visits">'))
                     .append(showCommentButton);
                 $('#sideBar').append(post);
+                _this.showPostVisits(data.results[i].objectId);
             }
         },
         function(err){console.log(err.responseText)});
@@ -122,6 +124,31 @@ app.viewFactory = (function(){
             console.log(err.responseText)
         })
     };
+
+    ViewFactory.prototype.showPostVisits = function (objectId) {
+        this.model.visits.getPostVisits(objectId,
+            function(data){
+                returnVisits(data, objectId)
+            },
+            function(err){
+                console.log(err.responseText);
+            });
+    };
+
+    function returnVisits(data, objectId) {
+        var visits,
+            postContainer = $('[data-id="' + objectId + '"]'),
+            visitsContainer = postContainer.find('.visits');
+
+        if (data.results.length>0) {
+            visits = data.results[0].postVisits;
+        }
+        else {
+            visits = 0;
+        }
+        visitsContainer.text(visits);
+        console.log('visits returned ' + visits)
+    }
 
     if(sessionStorage.sessionToken){
         $('#loginForm').remove();
