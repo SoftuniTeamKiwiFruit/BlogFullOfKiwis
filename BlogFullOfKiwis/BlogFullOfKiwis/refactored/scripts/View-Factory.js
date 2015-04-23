@@ -24,12 +24,20 @@ app.viewFactory = (function(){
                             _this.hideComments(ev);
                         }
                     });
+                var deleteBtn = $('<button id = "delete" >Delete</button>');
+                deleteBtn.on('click',function(ev){
+                    var id = ev.target.parentNode.getAttribute("data-id");
+                    _this.model.posts.deletePost(id,function(data){console.log(data)},function(err){console.log(err.responseText)});
+                    setTimeout(function(){location.reload()},1000);
+                });
                 post.append("<h3>" + data.results[i].title +"</h3>")
                     .append("<p>" + data.results[i].content +"</p>")
                     .append($('<span class="visits">'))
                     .append($('<p id = ' + postId + '></p>'))
-                    .append(showCommentButton);
+                    .append(showCommentButton)
+                    .append(deleteBtn);
                 $('#sideBar').append(post);
+
                 _this.showPostVisits(postId);
                 _this.model.tags.getAddedTags(postId,
                     function(data){
@@ -61,7 +69,8 @@ app.viewFactory = (function(){
         this.model.posts.addPost(data,function(data){
                 var id = data.objectId;
                 _this.model.posts.addTags(id, ids, function(data){console.log(data)},function(err){console.log(err.responseText)});
-                _this.model.tags.addPostToTags(id, ids, function(data){console.log(data)}, function(err){console.log(err.responseText)})
+                _this.model.tags.addPostToTags(id, ids, function(data){console.log(data)}, function(err){console.log(err.responseText)});
+                setTimeout(function(){location.reload()},1000);
             },
             function(err){console.log(err.responseText)});
     };
