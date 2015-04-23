@@ -49,7 +49,6 @@ app.viewFactory = (function(){
         var content = $('#postContent').val();
         var tags = $('#addTags').val().split(/[ #,]+/);
         tags = tags.filter(function(n){ return n != '' });
-        console.log(tags);
         var ids = this.model.tags.getIds(tags);
         var data = JSON.stringify({
             'title': title,
@@ -62,7 +61,7 @@ app.viewFactory = (function(){
         this.model.posts.addPost(data,function(data){
                 var id = data.objectId;
                 _this.model.posts.addTags(id, ids, function(data){console.log(data)},function(err){console.log(err.responseText)});
-
+                _this.model.tags.addPostToTags(id, ids, function(data){console.log(data)}, function(err){console.log(err.responseText)})
             },
             function(err){console.log(err.responseText)});
     };
