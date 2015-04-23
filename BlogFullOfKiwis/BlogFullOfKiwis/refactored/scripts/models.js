@@ -115,6 +115,22 @@ app.models = (function() {
             app.makeRequest('GET', this.serviceUrl, null, success, error);
         };
 
+        Tags.prototype.addPosts = function(tagIds, postId, success, error){
+            var data = JSON.stringify({
+                post: {
+                    __op: "AddRelation",
+                    objects: [{
+                        __type: 'Pointer',
+                        className : 'Post',
+                        objectId: postId
+                    }]
+                }
+            });
+            tagIds.forEach(function(tagId){
+                app.makeRequest("PUT", "https://api.parse.com/1/classes/Tag/" + tagId, data, success, error)
+            });
+        };
+
         Tags.prototype.getAddedTags = function(id, success, error){
             app.makeRequest('GET',
 this.serviceUrl + '?where={"$relatedTo":{"object":{"__type":"Pointer","className":"Post","objectId":"' + id + '"},"key":"tags"}}',
