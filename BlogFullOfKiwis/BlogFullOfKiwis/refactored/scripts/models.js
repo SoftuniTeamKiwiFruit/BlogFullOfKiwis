@@ -121,6 +121,23 @@ this.serviceUrl + '?where={"$relatedTo":{"object":{"__type":"Pointer","className
             null, success, error);
         };
 
+        Tags.prototype.addPostToTags = function(postId, tagids, success, error){
+            var data = JSON.stringify({
+                post: {
+                    __op: "AddRelation",
+                    objects: [{
+                        __type: 'Pointer',
+                        className : 'Post',
+                        objectId: postId
+                    }]
+                }
+            });
+            tagids.forEach(function(tagId){
+                app.makeRequest("PUT", "https://api.parse.com/1/classes/Tag/" + tagId, data, success, error)
+            });
+
+        };
+
         Tags.prototype.getIds = function(tagNames){
             var Ids = [];
             $.ajax({
