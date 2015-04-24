@@ -65,7 +65,8 @@ app.models = (function() {
             app.makeRequest("GET", this.serviceUrl + '/' + querryUrl, null, success, error);
         };
 
-        Comments.prototype.postComment = function(data, success, error){
+        Comments.prototype.addComment = function(data, success, error){
+            //to-do pointer to the post -- data
             app.makeRequest("POST", this.serviceUrl, data, success, error);
         };
 
@@ -105,7 +106,6 @@ app.models = (function() {
         return Users;
     }());
 
-    //To-Do Tags model
     var Tags = (function(){
         function Tags(baseUrl){
             this.serviceUrl = baseUrl + "Tag";
@@ -168,9 +168,31 @@ this.serviceUrl + '?where={"$relatedTo":{"object":{"__type":"Pointer","className
             this.serviceUrl = baseUrl + 'Visit';
         }
 
+        Visits.prototype.initVisits = function(postId, success, error) {
+            var data = JSON.stringify({
+                'postVisits': 0,
+                'postPointer': {
+                    "__type": "Pointer",
+                    "className": "Post",
+                    "objectId": postId
+                }
+            });
+            app.makeRequest("POST", this.serviceUrl, data, success, error);
+        }
+
         Visits.prototype.getPostVisits = function(postId, success, error) {
             var querryUrl = '/?where={ "postPointer":{"__type": "Pointer","className": "Post","objectId": "' + postId + '"}}';
             app.makeRequest('GET', this.serviceUrl + querryUrl, null, success, error);
+        };
+
+        Visits.prototype.incrementPostVisit = function(visitId, currentVisits, success, error){
+            var newVisits = currentVisits + 1,
+                data = JSON.stringify({
+                    'postVisits': newVisits
+                });
+            console.log(data);
+
+            app.makeRequest("PUT", this.serviceUrl + '/' + visitId, data, success, error);
         };
 
         return Visits;

@@ -12,6 +12,7 @@ app.viewFactory = (function(){
         this.model.posts.getAllPosts(function(data){
             var postData = data;
             for(var i = 0; i < data.results.length; i++){
+
                 var index = 0;
                 var postId = data.results[i].objectId;
                 var post = $("<article/>").attr('data-id', postId);
@@ -30,13 +31,18 @@ app.viewFactory = (function(){
                     _this.model.posts.deletePost(id,function(data){console.log(data)},function(err){console.log(err.responseText)});
                     setTimeout(function(){location.reload()},1000);
                 });
-                post.append("<h3>" + data.results[i].title +"</h3>")
+                post.append($('<h3>').text(data.results[i].title).on('click', function(ev) {
+                    var id = $(ev.target).parent().data('id');
+                    _this.showSinglePost(id);
+                }))
                     .append("<p>" + data.results[i].content +"</p>")
                     .append($('<span class="visits">'))
                     .append($('<p id = ' + postId + '></p>'))
                     .append(showCommentButton)
                     .append(deleteBtn);
                 $('#sideBar').append(post);
+
+
 
                 _this.showPostVisits(postId);
                 _this.model.tags.getAddedTags(postId,
@@ -70,6 +76,7 @@ app.viewFactory = (function(){
                 var id = data.objectId;
                 _this.model.posts.addTags(id, ids, function(data){console.log(data)},function(err){console.log(err.responseText)});
                 _this.model.tags.addPostToTags(id, ids, function(data){console.log(data)}, function(err){console.log(err.responseText)});
+                _this.model.visits.initVisits(id, function(data){console.log(data)},function(err){console.log(err.responseText)});
                 setTimeout(function(){location.reload()},1000);
             },
             function(err){console.log(err.responseText)});
@@ -138,15 +145,22 @@ app.viewFactory = (function(){
     ViewFactory.prototype.showSinglePost = function (objectId) {
         var _this = this;
         this.model.posts.getPostById(objectId, function(data){
-            var visitsPlusPlus = data.visits+1;
-            var newData = JSON.stringify({'visits': visitsPlusPlus});
+            _this.model.visits.getPostVisits(objectId,
+                function(data){
+                    var visits = data.results[0].postVisits,
+                        visitId = data.results[0].objectId;
+                    _this.model.visits.incrementPostVisit(visitId, visits, function(data){console.log(data), function(err){console.log(err.responseText)}})
+                },
+                function(err){
+                    console.log(err.responseText);
+                });
 
-            _this.model.posts.editPost(objectId,
-                newData,
-                function(){console.log('success')},
-                function(err){console.log(err.responseText)});
+            $('#sideBar').empty();
 
-        }, function(err) {
+            printPost(data);
+
+
+            }, function(err) {
             console.log(err.responseText)
         })
     };
@@ -175,6 +189,10 @@ app.viewFactory = (function(){
         visitsContainer.text(visits);
     }
 
+    ViewFactory.prototype.incrementPostVisit = function (objectId) {
+
+    }
+
     ViewFactory.prototype.loadTags = function(){
         this.model.tags.getTags(function(data){
                 data.results.forEach(function(tag){
@@ -188,6 +206,39 @@ app.viewFactory = (function(){
 
     if(sessionStorage.sessionToken){
         $('#loginForm').remove();
+    }
+
+    function printPost(data) {
+        var _this = this,
+            postId = data.objectId,
+            postTitle = data.title,
+            postContent = data.content;
+
+        var post = $("<article/>").attr('data-id', postId);
+        var showCommentButton = $('<button>Show comments</button>').attr('class', 'show-comments')
+            .on('click', function(ev){
+                if(ev.target.innerText == 'Show comments') {
+                    _this.showComments(ev)
+                }
+                else if(ev.target.innerText == 'Hide comments') {
+                    _this.hideComments(ev);
+                }
+            });
+        var deleteBtn = $('<button id = "delete" >Delete</button>');
+        deleteBtn.on('click',function(ev){
+            var id = ev.target.parentNode.getAttribute("data-id");
+            _this.model.posts.deletePost(id,function(data){console.log(data)},function(err){console.log(err.responseText)});
+            setTimeout(function(){location.reload()},1000);
+        });
+        post.append("<h3>" + postTitle +"</h3>")
+            .append("<p>" + postContent +"</p>")
+            .append($('<span class="visits">'))
+            .append($('<p id = ' + postId + '></p>'))
+            .append(showCommentButton)
+            .append(deleteBtn);
+        $('#sideBar').append(post);
+
+        _this.showPostVisits(postId);
     }
 
     return {

@@ -5,5 +5,7 @@ var app = app || {};
     var viewModel = new app.viewFactory.loadViewFactory(model);
     viewModel.loadPosts();
     viewModel.loadTags();
-    //viewModel.showPostVisits('bjFWrj8ZIK');
+
+    //This on works ->
+    // viewModel.showSinglePost('Whhzo7kNut');
 }());
