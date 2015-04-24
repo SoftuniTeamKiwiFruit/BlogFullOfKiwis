@@ -52,3 +52,7 @@ body, header {
 #postContent {
     height: 120px;
 }
+
+.hidden {
+    display: none;
+}

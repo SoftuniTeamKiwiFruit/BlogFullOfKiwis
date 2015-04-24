@@ -97,9 +97,11 @@ app.models = (function() {
         Users.prototype.login = function(username, password, success, error) {
             app.makeRequest('GET', this.serviceUrl + 'login' + '?username=' + username + '&password=' + password, {}, success, error);
         };
-        Users.prototype.logout = function(userId, success, error) {
-            app.makeRequest('POST', this.serviceUrl + 'logout', data, success, error);
+
+        Users.prototype.logout = function(success, error) {
+            app.makeRequest('POST', this.serviceUrl + 'logout', null, success, error);
         };
+
         Users.prototype.deteleUser = function(userId, success, error) {
             app.makeRequest('DELETE', this.serviceUrl + 'users/' + userId, success, error);
         };

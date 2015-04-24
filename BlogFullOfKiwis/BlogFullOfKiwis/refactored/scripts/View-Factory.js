@@ -131,7 +131,18 @@ app.viewFactory = (function(){
 
     };
 
+    ViewFactory.prototype.logoutView = function() {
+        this.model.users.logout(function(data){
+            sessionStorage.sessionToken = '';
+            location.reload();
+        }, function(err){
+            console.log(err.responseText);
+        })
+
+    };
+
     ViewFactory.prototype.attachEventListeners = function (viewFactory) {
+        var _this = this;
         $('#addPost').on('click', function(){
             viewFactory.addPost();
         });
@@ -139,6 +150,14 @@ app.viewFactory = (function(){
         $('#loginButton').on('click',function(){
             viewFactory.loginView()
         });
+
+        $('#logoutButton').on('click', function(){
+            viewFactory.logoutView();
+        });
+
+        $('#backToAllPosts').on('click', function(){
+            viewFactory.backToAllPosts();
+        })
 
     };
 
@@ -205,7 +224,8 @@ app.viewFactory = (function(){
     };
 
     if(sessionStorage.sessionToken){
-        $('#loginForm').remove();
+        $('.loginUsername').addClass('hidden');
+        $('.loginPassword').addClass('hidden');
     }
 
     function printPost(data) {
@@ -239,6 +259,11 @@ app.viewFactory = (function(){
         $('#sideBar').append(post);
 
         _this.showPostVisits(postId);
+    }
+
+    ViewFactory.prototype.backToAllPosts = function() {
+        $('#sideBar').empty();
+        this.loadPosts();
     }
 
     return {

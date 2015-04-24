@@ -9,20 +9,23 @@
 <body>
     <header>
         <img src="images/header-pic.jpg" alt="team kiwi fruit site logo" id="headerPic" />
+        <nav><a href="" id="backToAllPosts">Back</a></nav>
     </header>
     <main>
         <div id="sideBar"></div>
         <div id="sideForms">
             <div id="loginForm">
                 <form id = "login">
-                    <div>
+                    <div class="loginUsername">
                         <label for="username">Username: </label>
                         <input id="username" type="text" name="username" />
                     </div>
-                    <div>
+                    <div class="loginPassword">
                         <label for="password">Password: </label>
                         <input id="password" type="password" name="passord" />
                         <input id="loginButton" type="button" value="Login"/>
+                    </div>
+                    <div>
                         <input id="logoutButton" type="button" value="Logout" />
                         <input id="signUpButton" type="button" value="signUpButon" />
                     </div>
