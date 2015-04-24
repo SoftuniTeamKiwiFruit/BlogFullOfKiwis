@@ -38,8 +38,10 @@ app.viewFactory = (function(){
                     .append("<p>" + data.results[i].content +"</p>")
                     .append($('<span class="visits">'))
                     .append($('<p id = ' + postId + '></p>'))
-                    .append(showCommentButton)
-                    .append(deleteBtn);
+                    .append(showCommentButton);
+                if(sessionStorage.sessionToken){
+                    post.append(deleteBtn);
+                }
                 $('#sideBar').append(post);
 
 
@@ -132,13 +134,8 @@ app.viewFactory = (function(){
     };
 
     ViewFactory.prototype.logoutView = function() {
-        this.model.users.logout(function(data){
-            sessionStorage.sessionToken = '';
-            location.reload();
-        }, function(err){
-            console.log(err.responseText);
-        })
-
+        this.model.users.logout();
+        location.reload();
     };
 
     ViewFactory.prototype.attachEventListeners = function (viewFactory) {

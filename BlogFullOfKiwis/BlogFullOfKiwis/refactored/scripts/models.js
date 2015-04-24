@@ -98,8 +98,8 @@ app.models = (function() {
             app.makeRequest('GET', this.serviceUrl + 'login' + '?username=' + username + '&password=' + password, {}, success, error);
         };
 
-        Users.prototype.logout = function(success, error) {
-            app.makeRequest('POST', this.serviceUrl + 'logout', null, success, error);
+        Users.prototype.logout = function() {
+            sessionStorage.clear();
         };
 
         Users.prototype.deteleUser = function(userId, success, error) {
