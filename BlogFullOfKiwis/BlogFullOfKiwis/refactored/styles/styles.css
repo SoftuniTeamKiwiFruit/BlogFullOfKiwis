@@ -71,7 +71,7 @@ body, header {
     width: 100%;
 }
 
-.visits, #nav, .show-comments, .comments-holder, #delete, #addPost {
+.visits, #nav, .show-comments, .comments-holder, #delete, #addPost, #loginButton {
     margin: 7px;
 }
 
@@ -87,7 +87,7 @@ body, header {
     width: 100%;
 }
 
-#logoutButton, .formHeading {
+#logoutButton, .formHeading, #loginButton {
     display: block;
 }
 
@@ -95,7 +95,7 @@ body, header {
     margin-top: 0;
 }
 
-#logoutButton {
+#logoutButton, #loginButton {
     margin-left: 0;
 }
 
