@@ -22,11 +22,11 @@
             <div id="loginForm">
                 <form id = "login">
                     <div class="loginUsername">
-                        <label for="username">Username: </label>
+                        <label for="username" class="formHeading">Username: </label>
                         <input id="username" type="text" name="username" />
                     </div>
                     <div class="loginPassword">
-                        <label for="password">Password: </label>
+                        <label for="password" class="formHeading">Password: </label>
                         <input id="password" type="password" name="passord" />
                         <input id="loginButton" type="button" value="Login"/>
                     </div>
@@ -40,19 +40,19 @@
             <div id="createPostForm">
                 <form>
                     <div>
-                        <label for="postTitle">Title: </label>
+                        <label for="postTitle" class="formHeading">Title: </label>
                         <input id="postTitle" type="text" name="postTitle" />
                     </div>
                     <div>
-                        <label for="postContent">Post: </label>
+                        <label for="postContent" class="formHeading">Post: </label>
                         <input type="text" name="postContent" id="postContent"/>
                     </div>
                     <div id="tagsInputs">
-                        <label for="addTags">Add Tags: </label>
+                        <label for="addTags" class="formHeading">Add Tags: </label>
                         <input id="addTags" type="text" />
-                        <p id="tags">Tags: </p>
+                        <p id="tags"><span class ="formHeading">Tags: </span></p>
                     </div>
-                    <input type="button" id="addPost" value="Create post" />
+                    <input type="button" id="addPost" value="Create" />
                 </form>
             </div>
         </div>
