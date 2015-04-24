@@ -69,6 +69,7 @@ app.models = (function() {
                                 tags.forEach(function(id){
                                         if(id == tag.objectId){
                                             result.push(post);
+                                            return;
                                         }
                                 })
                             })
