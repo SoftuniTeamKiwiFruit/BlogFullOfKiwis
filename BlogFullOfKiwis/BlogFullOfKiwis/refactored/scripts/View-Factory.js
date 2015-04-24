@@ -7,54 +7,55 @@ app.viewFactory = (function(){
         this.attachEventListeners(this);
     }
 
+    ViewFactory.prototype.loadSinglePost = function(data, postData, index, selector){
+        var postId = data.objectId;
+        var post = $("<article/>").attr('data-id', postId);
+        var showCommentButton = $('<button>Show comments</button>').attr('class', 'show-comments')
+            .on('click', function(ev){
+                if(ev.target.innerText == 'Show comments') {
+                    _this.showComments(ev)
+                }
+                else if(ev.target.innerText == 'Hide comments') {
+                    _this.hideComments(ev);
+                }
+            });
+        var deleteBtn = $('<button id = "delete" >Delete</button>');
+        deleteBtn.on('click',function(ev){
+            var id = ev.target.parentNode.getAttribute("data-id");
+            _this.model.posts.deletePost(id,function(data){console.log(data)},function(err){console.log(err.responseText)});
+            setTimeout(function(){location.reload()},1000);
+        });
+        post.append($('<h3>').text(data.title).on('click', function(ev) {
+            var id = $(ev.target).parent().data('id');
+            _this.showSinglePost(id);
+        }))
+            .append("<p>" + data.content +"</p>")
+            .append($('<span class="visits">'))
+            .append($('<p id = ' + postId + '></p>'))
+            .append(showCommentButton);
+        if(sessionStorage.sessionToken){
+            post.append(deleteBtn);
+        }
+        $(selector).append(post);
+
+
+        this.showPostVisits(postId);
+        this.model.tags.getAddedTags(postId,
+            function(data){
+                for(var i = 0; i < data.results.length; i++){
+                    $('#'+postData.results[index].objectId).append(' #' + data.results[i].name);
+                }
+            },
+            function(err){console.log(err.responseText)})
+    };
+
     ViewFactory.prototype.loadPosts = function(){
         var _this = this;
         this.model.posts.getAllPosts(function(data){
             var postData = data;
+            _this.postData = data;
             for(var i = 0; i < data.results.length; i++){
-
-                var index = 0;
-                var postId = data.results[i].objectId;
-                var post = $("<article/>").attr('data-id', postId);
-                var showCommentButton = $('<button>Show comments</button>').attr('class', 'show-comments')
-                    .on('click', function(ev){
-                        if(ev.target.innerText == 'Show comments') {
-                            _this.showComments(ev)
-                        }
-                        else if(ev.target.innerText == 'Hide comments') {
-                            _this.hideComments(ev);
-                        }
-                    });
-                var deleteBtn = $('<button id = "delete" >Delete</button>');
-                deleteBtn.on('click',function(ev){
-                    var id = ev.target.parentNode.getAttribute("data-id");
-                    _this.model.posts.deletePost(id,function(data){console.log(data)},function(err){console.log(err.responseText)});
-                    setTimeout(function(){location.reload()},1000);
-                });
-                post.append($('<h3>').text(data.results[i].title).on('click', function(ev) {
-                    var id = $(ev.target).parent().data('id');
-                    _this.showSinglePost(id);
-                }))
-                    .append("<p>" + data.results[i].content +"</p>")
-                    .append($('<span class="visits">'))
-                    .append($('<p id = ' + postId + '></p>'))
-                    .append(showCommentButton);
-                if(sessionStorage.sessionToken){
-                    post.append(deleteBtn);
-                }
-                $('#sideBar').append(post);
-
-
-
-                _this.showPostVisits(postId);
-                _this.model.tags.getAddedTags(postId,
-                    function(data){
-                        for(var i = 0; i < data.results.length; i++){
-                            $('#'+postData.results[index].objectId).append(' #' + data.results[i].name);
-                        }
-                        index++;
-                    },
-                    function(err){console.log(err.responseText)})
+                _this.loadSinglePost(data.results[i], postData, i, '#sideBar');
             }
         },
         function(err){console.log(err.responseText)});
@@ -154,7 +155,22 @@ app.viewFactory = (function(){
 
         $('#backToAllPosts').on('click', function(){
             viewFactory.backToAllPosts();
-        })
+        });
+
+        $('#searchBtn').on('click', function(){
+            var tags = $('#search').val();
+            var tagNames = tags.split(/[ #,]+/);
+            var ids = _this.model.tags.getIds(tagNames);
+            _this.model.posts.searchByTags(ids);
+            setTimeout(function(){
+                console.log(_this.model.posts.searchResults);
+                var index = 0;
+                _this.model.posts.searchResults.forEach(function(post){
+                    _this.loadSinglePost(post, _this.postData, index, '#searchResult');
+                    index++;
+                })
+            },1500);
+        });
 
     };
 

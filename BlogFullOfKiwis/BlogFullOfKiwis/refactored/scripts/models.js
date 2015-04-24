@@ -52,6 +52,34 @@ app.models = (function() {
                 function(err){console.log(err.responseText)})
             }
         };
+        Posts.prototype.getAddedTags = function(id, success, error){
+            app.makeRequest('GET',
+                'https://api.parse.com/1/classes/Tag?where={"$relatedTo":{"object":{"__type":"Pointer","className":"Post","objectId":"' + id + '"},"key":"tags"}}',
+                null, success, error);
+        };
+
+        Posts.prototype.searchByTags = function(tags){
+            var _this = this;
+            var result = [];
+            this.getAllPosts(function(data){
+                    var posts = data.results;
+                    posts.forEach(function(post){
+                        _this.getAddedTags(post.objectId, function(data){
+                            data.results.forEach(function(tag){
+                                tags.forEach(function(id){
+                                        if(id == tag.objectId){
+                                            result.push(post);
+                                        }
+                                })
+                            })
+
+                            },
+                            function(err){console.log(err.responseText)});
+                    });
+                    setTimeout(function(){_this.searchResults = result},1000);
+                },
+            function(err){console.log(err.responseText)});
+        };
 
         return Posts;
     }());
@@ -180,7 +208,7 @@ this.serviceUrl + '?where={"$relatedTo":{"object":{"__type":"Pointer","className
                 }
             });
             app.makeRequest("POST", this.serviceUrl, data, success, error);
-        }
+        };
 
         Visits.prototype.getPostVisits = function(postId, success, error) {
             var querryUrl = '/?where={ "postPointer":{"__type": "Pointer","className": "Post","objectId": "' + postId + '"}}';

@@ -40,6 +40,9 @@ body, header {
     background: #ffffff;
     margin: 5px;
 }
+#searchResult{
+    background: #ffffff;
+}
 
 #headerPic {
     width: 100%;
