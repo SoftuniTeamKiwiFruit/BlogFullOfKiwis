@@ -9,6 +9,7 @@ app.viewFactory = (function(){
 
     ViewFactory.prototype.loadSinglePost = function(data, postData, index, selector){
         var postId = data.objectId;
+        var _this = this;
         var post = $("<article/>").attr('data-id', postId);
         var showCommentButton = $('<button>Show comments</button>').attr('class', 'show-comments')
             .on('click', function(ev){
@@ -163,9 +164,10 @@ app.viewFactory = (function(){
             var ids = _this.model.tags.getIds(tagNames);
             _this.model.posts.searchByTags(ids);
             setTimeout(function(){
-                console.log(_this.model.posts.searchResults);
+                var result = _this.model.posts.searchResults;
+                $('#searchResult').empty();
                 var index = 0;
-                _this.model.posts.searchResults.forEach(function(post){
+                result.forEach(function(post){
                     _this.loadSinglePost(post, _this.postData, index, '#searchResult');
                     index++;
                 })
@@ -239,6 +241,10 @@ app.viewFactory = (function(){
     if(sessionStorage.sessionToken){
         $('.loginUsername').addClass('hidden');
         $('.loginPassword').addClass('hidden');
+        $('#greeting').html('Hello, Admin');    
+    }
+    else{
+        $('#logoutButton').remove();
     }
 
     function printPost(data) {
