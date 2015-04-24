@@ -27,11 +27,11 @@ body, header {
 }
 
 #sideBar {
-    width: 65%;
+    width: 62%;
 }
 
-#loginForm {
-    //width: 25%;
+#sideForms {
+    width: 30%;
 }
 
 #sideBar, #loginForm, #createPostForm {
@@ -49,13 +49,34 @@ body, header {
 }
 
 #sideBar, #sideForms {
-    display: inline-block;
+    display: block;
+    float: left;
 }
 
-#postContent {
-    height: 120px;
+#tagsInputs {
+    margin: 5px;
+}
+
+#tags {
+    margin: 0;
 }
 
 .hidden {
     display: none;
+}
+
+#postTitle, #postContent, #addTags {
+    width: 100%;
+}
+
+.visits, #nav, .show-comments, .comments-holder, #delete {
+    margin: 7px;
+}
+
+.comments-holder {
+    margin-top: 0;
+}
+
+.show-comments, #delete {
+    display: block;
 }
