@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Kiwi Fruit Blog</title>
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <script src="../libs/jquery-2.1.3.min.js"></script>
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/ionicons.css" rel="stylesheet" />
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <script src="assets/js/ie-10-view-port.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <link href = "bootstrap-3.3.4-dist/css/bootstrap.min.css" rel = "stylesheet">
+</head>
+<body style = "background-color: #000000">
+    <header id="header">
+        <div class="container" >
+                <div class="row"  >
+                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 logo-wrapper"></div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right" >
+                          <div class="menu-links scroll-me">
+                              <a href="#home"> <i class="ion-ios-home-outline"></i> </a>
+                          <a href="#view posts"> <i class="ion-ios-camera-outline"></i> </a>
+                          <a href="#users"> <i class="ion-ios-grid-view-outline"></i> </a>
+                          <a href="#contact"> <i class="ion-ios-chatboxes-outline"></i> </a>
+                          </div>                    
+                    </div>
+                </div>    
+            </div>
+   </header>
+   <div id = "logo" style="background-image: url(images/starnetblog_subtile_gray_pattern3.jpg); background-repeat:repeat">
+    <div id = "logo-container"><img src="images/kiwi33.png" alt="team kiwi fruit site logo" id="headerPic" /></div>
+   </div>
+   <nav id="nav">
+            <a href="" id="backToAllPosts">Back</a>
+            <input id="search" type="text"/>
+            <button id="searchBtn">Search</button>
+    </nav>
+    <main>
+        <div id="searchResult"></div>
+        <div id="sideBar" style="background-image: url(images/starnetblog_subtile_gray_pattern3.jpg); background-repeat:repeat"></div>
+        <div id="sideForms" style="background-image: url(images/starnetblog_subtile_gray_pattern3.jpg); background-repeat:repeat">
+            <div id="loginForm">
+                <form id = "login">
+                    <div class="loginUsername">
+                        <label for="username" class="formHeading">Username: </label>
+                        <input id="username" type="text" name="username" />
+                    </div>
+                    <div class="loginPassword">
+                        <label for="password" class="formHeading">Password: </label>
+                        <input id="password" type="password" name="passord" />
+                        <input id="loginButton" type="button" value="Login"/>
+                    </div>
+                    <div>
+                        <span id="greeting"></span>
+                        <input id="logoutButton" type="button" value="Logout" />
+                    </div>
+
+                </form>
+            </div>
+            <div id="createPostForm">
+                <form>
+                    <div>
+                        <label for="postTitle" class="formHeading">Title: </label>
+                        <input id="postTitle" type="text" name="postTitle" />
+                    </div>
+                    <div>
+                        <label for="postContent" class="formHeading">Post: </label>
+                        <input type="text" name="postContent" id="postContent"/>
+                    </div>
+                    <div id="tagsInputs">
+                        <label for="addTags" class="formHeading">Add Tags: </label>
+                        <input id="addTags" type="text" />
+                        <p id="tags"><span class ="formHeading">Tags: </span></p>
+                    </div>
+                    <input type="button" id="addPost" value="Create" />
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+
+    <script src="scripts/models.js"></script>
+    <script src="scripts/MakeRequest.js"></script>
+    <script src="scripts/View-Factory.js"></script>
+
+    <script src="scripts/App-Main.js"></script>
+</body>
+</html>
