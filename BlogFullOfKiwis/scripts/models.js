@@ -95,7 +95,6 @@ app.models = (function() {
         };
 
         Comments.prototype.addComment = function(data, success, error){
-            //to-do pointer to the post -- data
             app.makeRequest("POST", this.serviceUrl, data, success, error);
         };
 

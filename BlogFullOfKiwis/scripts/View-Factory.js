@@ -20,6 +20,33 @@ app.viewFactory = (function(){
                     _this.hideComments(ev);
                 }
             });
+        var commentButton = $('<button id = "addComment" >Add Comment</button>');
+        commentButton.attr('class', 'show-comments');
+
+        commentButton.on('click', function(ev){
+            var id = ev.target.parentNode.getAttribute("data-id");
+            var name = $('<input type="text" placeholder="Enter Name" id="commentName"> ');
+            var content = $('<input type="text" placeholder="Enter Content" id="commentTitle"> ');
+            var email = $('<input type="text" placeholder="Enter Email" id="commentEmail"> ');
+            var button = $('<button>Add Comment</button>');
+            button.on('click', function(){
+                var commentData = JSON.stringify({
+                    visitorName : name.val(),
+                    email: email.val(),
+                    content: content.val(),
+                    postPointer : {"__type":"Pointer","className":"Post","objectId": id}
+                });
+                _this.model.comments.addComment(commentData ,function(data){
+                    location.reload();
+                }, function(err){console.log(err.responseText)})
+            });
+            $('#'+id)
+                .append(name)
+                .append(content)
+                .append(email)
+                .append(button);
+        });
+
         var deleteBtn = $('<button id = "delete" >Delete</button>');
         deleteBtn.on('click',function(ev){
             var id = ev.target.parentNode.getAttribute("data-id");
@@ -33,7 +60,8 @@ app.viewFactory = (function(){
             .append("<p>" + data.content +"</p>")
             .append($('<span class="visits">'))
             .append($('<p id = ' + postId + '></p>'))
-            .append(showCommentButton);
+            .append(showCommentButton)
+            .append(commentButton);
         if(sessionStorage.sessionToken){
             post.append(deleteBtn);
         }
