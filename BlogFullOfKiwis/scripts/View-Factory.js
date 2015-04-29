@@ -47,7 +47,7 @@ app.viewFactory = (function(){
                 .append(button);
         });
 
-        var deleteBtn = $('<button id = "delete" >Delete</button>');
+        var deleteBtn = $('<button id = "delete" class="show-comments">Delete</button>');
         deleteBtn.on('click',function(ev){
             var id = ev.target.parentNode.getAttribute("data-id");
             _this.model.posts.deletePost(id,function(data){console.log(data)},function(err){console.log(err.responseText)});
